@@ -1,0 +1,22 @@
+{
+  "name": "plaee-auth-e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hananguy/plaee-auth-e2e.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hananguy/plaee-auth-e2e/issues"
+  },
+  "homepage": "https://github.com/hananguy/plaee-auth-e2e#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2"
+  }
+}
