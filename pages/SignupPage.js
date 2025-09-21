@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test";
+import { TestConfig } from '../tests/test-config.js';
 export class SignupPage {
   constructor(page) {
     this.page = page;
@@ -28,12 +29,12 @@ export class SignupPage {
     this.termsError = page.getByText('You must agree to the terms', { exact: false });
   }
 
- async gotoSignup() {
-  await this.page.goto('/home');    
-  await this.openSignupButton.waitFor({ state: 'visible' });          
-  await this.openSignupButton.click();        
-  await this.firstNameInput.waitFor({ state: 'visible' });    
-}
+  async gotoSignup() {
+    await this.page.goto(TestConfig.HOME_PAGE);
+    await this.openSignupButton.waitFor({ state: 'visible' });
+    await this.openSignupButton.click();
+    await this.firstNameInput.waitFor({ state: 'visible' });
+  }
 
 
  async fillAndSubmit({ firstName, lastName, email, birthday, password }) {

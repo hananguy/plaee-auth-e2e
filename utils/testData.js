@@ -1,5 +1,19 @@
+/**
+ * Generate unique email for testing
+ * @param {string} prefix - Email prefix (default: 'plaee')
+ * @returns {string} Unique email address
+ */
 export const generateEmail = (prefix = 'plaee') =>
   `${prefix}+${Date.now()}@example.com`;
+
+/**
+ * Real login credentials for actual system testing
+ * These credentials exist in the test environment
+ */
+export const RealLoginData = {
+  email: 'yhananguy@gmail.com',
+  password: 'PLEOMAX12345!',
+};
 
 // Valid test data
 export const ValidData = {

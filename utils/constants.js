@@ -1,4 +1,5 @@
 export const Errors = {
+  // Signup errors
   firstNameRequired: 'First name is required',
   lastNameRequired: 'Last name is required',
   invalidEmail: 'Invalid email address',

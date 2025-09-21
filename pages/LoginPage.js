@@ -1,5 +1,14 @@
 import { expect } from "@playwright/test";
+import { TestConfig } from '../tests/test-config.js';
+
+/**
+ * LoginPage - Page Object Model for Login functionality
+ * Handles all login-related interactions and validations
+ */
 export class LoginPage {
+  /**
+   * @param {import('@playwright/test').Page} page - Playwright page object
+   */
   constructor(page) {
     this.page = page;
 
@@ -23,25 +32,40 @@ export class LoginPage {
     
     // Forgot password locators
     this.passwordRecoverEmailInput = page.getByTestId('password-recover-email-input');
+    
+    // Logout locators
+    this.userProfileButton = page.getByText('GH');
+    this.signOutButton = page.getByTestId('sign-out-button');
   }
 
-    async gotoLogin() {
-    await this.page.goto('/home');
+  /**
+   * Navigate to login page and open login modal
+   * @returns {Promise<void>}
+   */
+  async gotoLogin() {
+    await this.page.goto(TestConfig.HOME_PAGE);
     await this.openLoginButton.waitFor({ state: 'visible' });
-    await this.openLoginButton.click()       
+    await this.openLoginButton.click();       
     await this.emailInput.waitFor({ state: 'visible' });     
   }
   
-    async fillAndSubmit({ email, password }) {
-      await this.emailInput.waitFor({ state: 'visible' });
-      await this.emailInput.fill(email);
-      
-      await this.passwordInput.waitFor({ state: 'visible' });
-      await this.passwordInput.fill(password);
-      
-      await this.submitButton.waitFor({ state: 'visible' });
-      await this.submitButton.click();
-    }
+  /**
+   * Fill login form and submit
+   * @param {Object} credentials - Login credentials
+   * @param {string} credentials.email - User email
+   * @param {string} credentials.password - User password
+   * @returns {Promise<void>}
+   */
+  async fillAndSubmit({ email, password }) {
+    await this.emailInput.waitFor({ state: 'visible' });
+    await this.emailInput.fill(email);
+    
+    await this.passwordInput.waitFor({ state: 'visible' });
+    await this.passwordInput.fill(password);
+    
+    await this.submitButton.waitFor({ state: 'visible' });
+    await this.submitButton.click();
+  }
     async expectBaseElementsVisible() {
     await expect(this.emailInput).toBeVisible();
     await expect(this.passwordInput).toBeVisible();
@@ -60,16 +84,32 @@ export class LoginPage {
   }
     
     // Validation: assert user logged in 
-    async expectLoggedIn() {
-      await expect(this.page).toHaveURL(/lobby/); 
-      await expect(this.loginForm).toBeHidden({ timeout: 10_000 });
-    }
+  async expectLoggedIn() {
+    await expect(this.page).toHaveURL(new RegExp(TestConfig.LOBBY_PAGE));
+    await expect(this.loginForm).toBeHidden({ timeout: 10_000 });
+  }
 
     // Forgot password method
     async openForgotPassword() {
       await this.forgotPasswordLink.waitFor({ state: 'visible' });
       await this.forgotPasswordLink.click();
       await this.passwordRecoverEmailInput.waitFor({ state: 'visible' });
+    }
+
+    // Logout methods
+    async logout() {
+      // Click on user profile button (GH)
+      await this.userProfileButton.waitFor({ state: 'visible' });
+      await this.userProfileButton.click();
+      
+      // Wait for sign out button to appear and click it
+      await this.signOutButton.waitFor({ state: 'visible' });
+      await this.signOutButton.click();
+    }
+
+    async expectLoggedOut() {
+      // After logout, login button should be visible again
+      await expect(this.openLoginButton).toBeVisible();
     }
 
 }
