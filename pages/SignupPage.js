@@ -80,7 +80,7 @@ async expectAllElementsVisible() {
   async ConfirmationDialogShown() {
   await expect(this.confirmationDialog).toBeVisible();
 }
-async fillAllAndSubmit({
+  async fillAllAndSubmit({
     firstName = '',
     lastName = '',
     email = '',

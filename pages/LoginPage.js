@@ -56,7 +56,7 @@ export class LoginPage {
    * @param {string} credentials.password - User password
    * @returns {Promise<void>}
    */
-  async fillAndSubmit({ email, password }) {
+  async fillAndSubmit({ email = '', password = '' }) {
     await this.emailInput.waitFor({ state: 'visible' });
     await this.emailInput.fill(email);
     
