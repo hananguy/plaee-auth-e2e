@@ -59,7 +59,7 @@ class AuthPage {
   await this.emailInputLogin.waitFor();       
 }
 
-  async login({ email, password }) {
+  async fillAndSubmit({ email, password }) {
     await this.emailInputLogin.fill(email);
     await this.passwordInputLogin.fill(password);
     await this.loginButton.click();

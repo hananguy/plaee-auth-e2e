@@ -31,7 +31,12 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    actionTimeout: 60000, // 60 seconds for actions
+    navigationTimeout: 60000, // 60 seconds for navigation
   },
+  
+  // Global test timeout
+  timeout: 120000, // 2 minutes per test
 
   /* Configure projects for major browsers */
   projects: [
